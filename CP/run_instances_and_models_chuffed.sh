@@ -4,7 +4,7 @@
 INSTANCE_DIR="instance_folder"
 
 # Specify the solver and other options
-SOLVER="gecode"
+SOLVER="chuffed"
 TIME_LIMIT="300000"
 
 # Loop over all model files in the directory
@@ -43,7 +43,7 @@ for model_file in model_folder/*.mzn; do
         start_time=$(date +%s.%N)
         
         # Run the minizinc command for each instance and save the output to the txt file
-        minizinc --solver $SOLVER --time-limit $TIME_LIMIT "$model_file" "$instance" >> "$output_file"
+        minizinc --solver $SOLVER -f --time-limit $TIME_LIMIT "$model_file" "$instance" >> "$output_file"
         
         # Calculate and print the time taken
         end_time=$(date +%s.%N)
