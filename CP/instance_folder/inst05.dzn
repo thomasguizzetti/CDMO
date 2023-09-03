@@ -1,0 +1,9 @@
+m = 2; % number of couriers
+n = 3; % number of items
+max_load = [18, 30]; % maximum load for each courier
+size = [20, 17, 6]; % size of each item
+distance = [| 0, 21, 86, 99
+            | 21, 0, 71, 80
+            | 92, 71, 0, 61
+            | 59, 80, 61, 0
+            | |];
