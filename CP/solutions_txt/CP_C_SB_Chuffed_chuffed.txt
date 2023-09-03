@@ -82,7 +82,7 @@ predecessor = [21, 17, 13, 1, 15, 7, 18, 19, 2, 14, 12, 23, 11, 16, 20, 8, 22, 2
 intload = [0, 10, 35, 11, 9, 24, 0, 0, 21, 47, 22, 0, 33, 35, 0, 14, 0, 0, 0, 0, 0, 0, 0, 25, 57, 11, 27, 41, 58];
 ----------
 % Time limit exceeded!
-Time taken: 150.0 seconds
+Time taken: 300.0 seconds
 
 Running Instance: inst08
 maximum distance among couriers = 186;
@@ -119,4 +119,52 @@ intload = [67, 50, 0, 25, 0, 10, 33, 0, 22, 0, 89, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ==========
 % [<UNKNOWN>]
 Time taken: 116.0 seconds
+
+Running Instance: inst11
+% Time limit exceeded!
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst12
+% Time limit exceeded!
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst13
+% Time limit exceeded!
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst14
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst15
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst16
+% Time limit exceeded!
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst17
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst18
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst19
+=====UNKNOWN=====
+Time taken: 151.0 seconds
+
+Running Instance: inst20
+=====UNKNOWN=====
+Time taken: 301.0 seconds
+
+Running Instance: inst21
+=====UNKNOWN=====
+Time taken: 301.0 seconds
 
