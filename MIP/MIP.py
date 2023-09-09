@@ -1,17 +1,40 @@
+import sys
+
+if len(sys.argv[1]) != 2:
+    print("Usage: python script_name.py <2-digit_number>")
+    raise
+
+arg = sys.argv[1]
+
+# Check if the argument is a 2-digit number between 01 and 21
+if len(arg) != 2 or not arg.isdigit() or not (1 <= int(arg) <= 21):
+    print("Error: Please provide a 2-digit number between 01 and 21.")
+    raise
+
+# If the argument is valid, you can access it as a string
+print("You provided the number:", arg)
+
+InstanceNumber = arg
+
+
+
+
+
+
 import gurobipy as gp  # import the installed package
 
-import shutil
 
-# Move the license file to the current working directory
-shutil.move('/content/gurobi.lic', './gurobi.lic')
+# import shutil
+
+# # Move the license file to the current working directory
+# shutil.move('/content/gurobi.lic', './gurobi.lic')
 
 
-import os
+# import os
 
-InstanceNumber = "17"
 
-# Set the Gurobi license file path
-os.environ['GRB_LICENSE_FILE'] = './gurobi.lic'
+# # Set the Gurobi license file path
+# os.environ['GRB_LICENSE_FILE'] = './gurobi.lic'
 
 def import_variables(name):
   with open(name, 'r') as f:
@@ -55,7 +78,7 @@ def import_variables(name):
 # l is the capacity of couriers
 # s is the sizeof each item
 # d is the distances between destinations
-m, n, l, s, d = import_variables(f"inst{InstanceNumber}.dat")
+m, n, l, s, d = import_variables(f"../Instances/inst{InstanceNumber}.dat")
 
 
 def get_element_info(numbers):
@@ -281,8 +304,8 @@ end_time = timer()
 #print(model.display())
 print(results)
 print(f"[INFO] Total execution time: {end_time-start_time:.3f} seconds")
-print("PPRINT:")
-model.pprint()
+#print("PPRINT:")
+#model.pprint()
 
 
 n_items_per_courier = []

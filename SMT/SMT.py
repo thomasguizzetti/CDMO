@@ -1,4 +1,20 @@
-InstanceNumber = "13"
+import sys
+
+if len(sys.argv[1]) != 2:
+    print("Usage: python script_name.py <2-digit_number>")
+    raise
+
+arg = sys.argv[1]
+
+# Check if the argument is a 2-digit number between 01 and 21
+if len(arg) != 2 or not arg.isdigit() or not (1 <= int(arg) <= 21):
+    print("Error: Please provide a 2-digit number between 01 and 21.")
+    raise
+
+# If the argument is valid, you can access it as a string
+print("You provided the number:", arg)
+
+InstanceNumber = arg
 
 def import_variables(name):
   with open(name, 'r') as f:
@@ -36,7 +52,7 @@ def import_variables(name):
 
   return m, n, l, s, D
 
-m, n, l, s, d = import_variables(f"inst{InstanceNumber}.dat")
+m, n, l, s, d = import_variables(f"../Instances/inst{InstanceNumber}.dat")
 
 def get_element_info(numbers):
     element_info = {}
@@ -61,9 +77,10 @@ l_reap
 
 import numpy as np
 from timeit import default_timer as timer
+from z3 import *
 
 
-m, n, l, s, d = import_variables(f"inst{InstanceNumber}.dat")
+m, n, l, s, d = import_variables(f"../Instances/inst{InstanceNumber}.dat")
 
 start_time = timer()
 # Define a function to handle the on_model event
