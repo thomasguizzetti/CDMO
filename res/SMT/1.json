@@ -1,0 +1,36 @@
+{
+    "Symmetry Breaking": {
+        "time": 0,
+        "optimal": true,
+        "obj": 14,
+        "sol": [
+            [
+                4,
+                3,
+                1
+            ],
+            [
+                2,
+                5,
+                6
+            ]
+        ]
+    },
+    "No Symmetry Breaking": {
+        "time": 0,
+        "optimal": true,
+        "obj": 14,
+        "sol": [
+            [
+                4,
+                3,
+                1
+            ],
+            [
+                2,
+                5,
+                6
+            ]
+        ]
+    }
+}
