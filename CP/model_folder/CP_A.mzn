@@ -13,7 +13,7 @@ set of int: COURIERS = 1..m;
 set of int: ITEM_LOCATIONS = 1..n;
 set of int: LOAD = 0..max(max_load);
 set of int: NODES = 1..n+2*m;
-set of int: ORIGIN_NODES = m+1..n+2*m;
+set of int: ORIGIN_NODES = n+1..n+2*m;
 set of int: ORIGIN_NODES_START = n+1..n+m;
 set of int: ORIGIN_NODES_END = n+m+1..n+2*m;
 

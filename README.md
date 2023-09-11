@@ -2,7 +2,7 @@
 Combinatorial Optimization - Vehicle Routing Problem
 
 
-In order to run the MIP and SMT solvers in the you should enter their respective folders and write a command like the following:
+In order to run the MIP and SMT solvers, you should enter their respective folders and write a command like the following:
 
     python3 SMT.py 21 
 
