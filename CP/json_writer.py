@@ -50,39 +50,38 @@ def parse_data(data_list):
     return result
 
 def find_routes(courier_assignment, successor):
-    # Initialize an empty dictionary to store the routes for each courier.
-    courier_routes = {}
-    slice_number = max(courier_assignment) * 2
-    courier_assignment = courier_assignment[:-slice_number]
-    successor = successor[:-slice_number]
+    # Number of couriers.
+    num_couriers = max(courier_assignment)
+    
+    # Extract start and end nodes for each courier.
+    start_nodes = successor[-num_couriers*2:][:-num_couriers]
+    end_nodes = successor[-num_couriers*2:][-num_couriers:]
+
+    # Remove the last 'number of couriers' * 2 entries.
+    courier_assignment = courier_assignment[:-num_couriers*2]
+    successor = successor[:-num_couriers*2]
 
     # Associate each node with its successor and its assigned courier.
-    node_info = {}
-    for i, (courier, succ) in enumerate(zip(courier_assignment, successor)):
-        
-        node = i + 1
-        if courier not in courier_routes:
-            courier_routes[courier] = []
-        node_info[node] = {"courier": courier, "successor": succ}
-    
-    # Sort nodes by successor order within each courier's list.
-    for node, info in node_info.items():
-        courier = info["courier"]
-        route = courier_routes[courier]
-        route.append((node, info["successor"]))
-        
-    # Sort and clean up each courier's route.
-    for courier, route in courier_routes.items():
-        route.sort(key=lambda x: x[1])  # Sort by successor.
-        courier_routes[courier] = [node for node, _ in route]
-    
-    # Initialize a list with None for placeholder.
-    max_courier = max(courier_routes.keys())
-    sorted_routes = [None] * max_courier
-    
-    # Populate the list using courier numbers as indices.
-    for courier, route in courier_routes.items():
-        sorted_routes[courier - 1] = route
+    node_info = {node: {"courier": courier, "successor": succ} 
+                for node, (courier, succ) in enumerate(zip(courier_assignment, successor), 1)}
+
+    # Create routes for each courier using successors.
+    courier_routes = {courier: [] for courier in range(1, num_couriers + 1)}
+    for courier in range(1, num_couriers + 1):
+        current_node = start_nodes[courier - 1]
+        while True:
+            try:
+                successor[current_node-1]
+                #print(f"courier: {courier}, node: {current_node}")
+                courier_routes[courier].append(current_node)
+                next_node = node_info[current_node]["successor"]
+                # Appending the successor, which is the next_node
+                current_node = next_node
+            except:
+                break
+
+    # Convert dict to list, keeping the routes in courier order.
+    sorted_routes = [courier_routes[courier] for courier in range(1, num_couriers + 1)]
     
     return sorted_routes
 
@@ -142,7 +141,8 @@ def main():
                 for block in instance_blocks:
                     instance_name = block[0].split(": ")[1][:6]
                     parsed_data = parse_data(block)
-                    aggregated_data[instance_name][solver_model_name] = parsed_data
+                    if parsed_data is not None:
+                        aggregated_data[instance_name][solver_model_name] = parsed_data
                     #instance_name = block_lines[0].split(": ")[1][4:]
                     
                     
@@ -158,7 +158,7 @@ def main():
         for instance_name, instance_data in aggregated_data.items():
             json_filename = os.path.join(output_folder, f"{instance_name}.json")
             with open(json_filename, 'w') as json_file:
-                json.dump(instance_data, json_file, indent=4)
+                json.dump(instance_data, json_file)
     except Exception as e:
         print("An error occurred:", e)
         
