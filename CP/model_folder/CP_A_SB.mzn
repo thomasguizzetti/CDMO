@@ -48,13 +48,13 @@ array[NODES] of var LOAD: intload; % specifies the intermediate load of each cou
 
 % Initialization constraint
 % Predecessor of start nodes are end nodes
-constraint
+constraint redundant_constraint(
    forall(i in (n+2..n+m)) (
      predecessor[i] = i + m -1
-   );
+   ));
 
-constraint
-   predecessor[n+1] = n+2*m;
+constraint redundant_constraint(
+   predecessor[n+1] = n+2*m);
 
 % Successors of end nodes are start nodes
 constraint 
