@@ -19,7 +19,7 @@ InstanceNumber = arg
 
 
 
-
+# Gurobi is the solver, PYOMO is the notation
 
 import gurobipy as gp  # import the installed package
 
@@ -127,7 +127,7 @@ model.max_distance = Var(within=NonNegativeIntegers)
 # total distance
 model.distance = Var(within=NonNegativeIntegers)
 
-# Define the solver
+# Define the solver (Tee means the verbose option)
 solver = SolverFactory('gurobi', tee=True)
 #solver = SolverFactory('glpk', tee=True)
 
@@ -135,6 +135,7 @@ solver = SolverFactory('gurobi', tee=True)
 model.constraints = ConstraintList()
 
 #####################################
+# Constraint that defines the total distance of all couriers
 model.constraints.add(model.distance == sum(model.roots[i, j, k] * d[j][k] for i in range(m) for j in range(n+1) for k in range(n+1)))
 #####################################
 

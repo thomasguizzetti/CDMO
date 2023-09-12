@@ -71,6 +71,7 @@ def get_element_info(numbers):
     return element_info
 
 print(l)
+# This is used in SB below:
 l_reap = get_element_info(l)
 l_reap
 
@@ -131,7 +132,8 @@ roots = [ [ [ Bool("courier%i[%i,%i]" % (i, j, k)) for k in range(n+1) ] for j i
 
 # Define the solver
 solver = Optimize()
-solver.set_on_model(on_model)
+# Set the function that needs to be called when a solution is found (on_model prints the intermediate solutions) to the solver
+solver.set_on_model(on_model) 
 
 ###################################################################################################
 #### Options ######################################################################################
@@ -142,6 +144,7 @@ solver.set_on_model(on_model)
 
 # Set the timeout to 5 minutes (300,000 milliseconds)
 solver.set("timeout", 5*60*1000)
+# Sets the logic option for the solver
 solver.set("maxsat_engine",'core_maxsat')
 
 ###################################################################################################
@@ -152,7 +155,7 @@ solver.set("maxsat_engine",'core_maxsat')
 ###################################################################################################
 #### The assignment Matrix Rules ##################################################################
 ###################################################################################################
-# Define the capacity constraint, which ensures that each item is assigned to exactly one courier
+# Define the assignement constraint, which ensures that each item is assigned to exactly one courier
 for j in range(n):
     # the summation of the number of couriers responsible for taking one package shouldn't surpass 1
     solver.add(Sum([If(x[i][j], 1, 0) for i in range(m)]) == 1)
@@ -195,6 +198,7 @@ for i in range(m):
 #Add the MTZ constraint
 u = [[Int(f"u[{i},{j}]") for j in range(n+1)] for i in range(m)]
 
+# All the values in U should be greater or equal to zero. 
 for i in range(m):
     for j in range(n+1):
         for k in range(n+1):
@@ -207,14 +211,13 @@ for i in range(m):
               solver.add(u[i][j] - u[i][k] + n * roots[i][j][k] <= n - 1)
 
 # # 5)
-# Working
-# Diag Zero
+# All the diagonal elements in the routes matrix are zero. 
 for i in range(m):
    for j in range(n+1):
       solver.add(roots[i][j][j] == BoolVal(0))
 
 
-#### Extra Rules ###############################################################################
+#### Implied Constraints ###############################################################################
 #6)
 # 1. Vehicle leaves node that it enters
 for i in range(m):
@@ -238,12 +241,15 @@ for i in range(m):
 for i in range(m):
     for j in range(n):
         solver.add(Sum([roots[i][j][k] for k in range(n+1)]) == x[i][j])
+        # redundant constraint
         solver.add(Sum([roots[i][k][j] for k in range(n+1)]) == x[i][j])
 
 
 ###################################################################################################
 #### Symmetry Breaking ############################################################################
 ###################################################################################################
+
+# Lexographical ordering of the couriers with the same load capacity
 for i in range(m):
     for j in range(n):
         if (l_reap[l[i]]['before_indexes'][i] is not None):
@@ -327,6 +333,7 @@ end_time = timer()
 # else:
 #    print("No solution found.")
 
+# How we print the Output. 
 
 n_items_per_courier = []
 # coordinates of items per courier
